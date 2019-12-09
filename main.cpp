@@ -44,6 +44,14 @@ int main() {
         ManuallyPlaceShips(grid, shipsToPlace, sizeof(shipsToPlace)/sizeof(shipsToPlace[0]));
     }
     else if (command == "R") {
+        int randomSeed;
+
+        // Prompt for random seed to use
+        cout << "Enter seed for random number generator: ";
+        cin >> randomSeed;
+        srand(randomSeed);
+
+        // Do the random placement
         RandomlyPlaceShips(grid, shipsToPlace, sizeof(shipsToPlace)/sizeof(shipsToPlace[0]));
 
     }
