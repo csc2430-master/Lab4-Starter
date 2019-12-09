@@ -199,7 +199,7 @@ Make sure you test your code thoroughly.
 * For manual ship placement, make sure you test both ship orientations in situations where they can be placed or they cannot be placed because they would extend outside the grid or overlap a ship that already has been placed.
 * Examine the contents of the file produced when you save the configuration to file.  
 * Make sure saving fails when you give an invalid file name.  
-* Write a quick test program to make sure loading fails when the file doesn't doesn't exist or contains an invalid ship configuration.
+* Write a quick test program to make sure loading fails when the file isn't formatted correctly.
 
 ## Style
 
