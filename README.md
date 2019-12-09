@@ -4,7 +4,7 @@ Begin a three part series of labs where you will implement the class Battleship 
 
 ![Lab 6 Screen Shot](/images/image1.png)
 
-In this lab you will do an initial implementation of a grid ADT which will maintain the location and status of this ships that a player has placed on the grid. The main new C++ concept that you will get to practice is working with two dimensional arrays.
+In this lab you will do an initial implementation of a _Grid_ ADT which will maintain the location and status of this ships that a player has placed on the grid. The main new C++ concept that you will get to practice is working with two dimensional arrays.
 
 ## Sample Run
 
@@ -14,17 +14,17 @@ The following screen shot shows a run where random ship placement was chosen:
 
 ![Random Ship Placement](/images/image2.png)
 
-As you can see, when random ship placement is chosen, the user has to enter an integer for a "random seed."  Different random seeds will usually give you different ship placements, but you get the same sequence of random numbers if you enter the same seed each time.  Repeatability makes testing easier!
+As you can see, when random ship placement is chosen, the user has to enter an integer for a "random seed."  Different random seeds will usually give you different ship placements, but you get the same sequence of random numbers if you enter the same seed each time.  Random ship placement makes the game more fun, but repeatability makes testing easier!
 
 Next, here's a screen shot for the first part of a run where manual ship placement was chosen:
 
 ![Manual Ship Placement1](/images/image3.png)
 
-We aren't going to show you the whole manual ship placement run because it's very "chatty".  It displays the current ship configuration after you place each ship! Here's how the run ended:
+We aren't going to show you the whole manual ship placement run because it's very "chatty".  It re-displays the current ship configuration each time you place a ship on the grid -- you don't want to see all that! But, here's how the run ended:
 
 ![Manual Ship Placement2](/images/image4.png)
 
-If the user tries to enter a ship placement which doesn't fit within the 10x10 grid, or overlaps a ship that has already been placed on the grid, no placement is done and the grid is not updated in any way so that the user can try again.  The following screen shot shows an example of how the user tried to add a ship that overlapped the first ship, and then tried to add a ship that would have extended outside the grid, and then finally entered a correct ship placement.
+If the user tries to enter a ship placement which doesn't fit within the 10x10 grid, or overlaps a ship that has already been placed on the grid, no placement is done.  No changes to the _Grid_ data structure should be made in these error situations.  It's important that the user can continue on and try finishing adding ships.  The following screen shot shows an example of how the user tried to add a ship that overlapped the first ship, and then tried to add a ship that would have extended outside the grid, and then finally entered a correct ship placement.
 
 ![Manual Ship Placement3](/images/image5.png)
 
@@ -39,11 +39,11 @@ In this lab, you are given all the files you will need for your CLion project.
 
 *	**helperCode.cpp** – This file implements the useful functions _PrintGrid_ and _CompareGridConfigurations_ which are called by the main program.  This file has been completed for you and should not be modified.
 
-*	**grid.h** – This file contains the declaration of the Grid ADT and the interface functions that used to manipulate the grid.  This file has been completed for you and should not be modified.
+*	**grid.h** – This file contains the declaration of the _Grid_ ADT and the interface functions that used to manipulate the grid.  This file has been completed for you and should not be modified.
 .
 *	**grid.cpp** – This is the file where you will do most of your work.   The _#include_ lines that you will need have been added, as well as header comments for each of the interface function.  You will need to fix the file header comment, and implement the ten interface functions.
 
-##	The Grid ADT
+##	The _Grid_ ADT
 
 A _struct_ is used to group the information about the grid into a single “package.”  
 
@@ -63,11 +63,11 @@ As you can see it stores an array of _ship_, where _ship_ is specified by:
 //      size -       number of squares it occupies
 //      isVertical - if true, the ship is positioned vertically, else it's horizontal
 //      startRow -   row (0-9) of uppermost (if vertical) or leftmost (if horizontal) square
-//		               it occupies
+//		     it occupies
 //      startColumn -column (0-9) of uppermost (if vertical) or leftmost (if horizontal) square 
-//		               it occupies
+//		     it occupies
 //      hits -       number of different squares that ship occupies that have been hit, it's sunk if
-//		               hits == size
+//		     hits == size
 typedef struct {
     string name;
     int size;
@@ -79,7 +79,7 @@ typedef struct {
 ```
 In addition, it stores the count of ships that have been placed on the grid in the _shipsDeployed_ member, and the number of these ships which have already been sunk in the _shipsSunk member_.  In this lab _shipsSunk_ will always be zero.  The _squareStatus_ member is a two-dimensional array that keeps track of the status of each square of the grid.  In this lab each square will either be marked as _WATER_ or _SHIP_, but in future labs, it could also be marked as _MISS_, _HIT_, or _SUNK_.
   . 
-The Grid ADT interface functions that you will implement in this lab are:
+The _Grid_ ADT interface functions that you will implement in this lab are:
 
 ```
 // Initialize the grid struct
@@ -95,15 +95,13 @@ bool SaveShips(Grid& grid, ofstream& file);
 void RandomlyPlaceShips(Grid& grid, const Ship ships[], int countShips);
 
 // Attempt to place a ship on the grid with the specified orientation and start position
-bool AddShip(Grid& grid, const string& name, int size, 
-		bool isVertical, int startRow, int startColumn);
+bool AddShip(Grid& grid, const string& name, int size, bool isVertical, int startRow, int startColumn);
 
 // Returns the number of ships that have been sunk
 int GetShipsSunk(const Grid& grid);
 
 // Returns the number of ships placed on the grid
 int GetShipsDeployed(const Grid& grid);
-
 
 // Retrieves information about the i-th ship
 void GetShip(const Grid& grid, int i, Ship& ship);
@@ -118,16 +116,16 @@ The function header comments in the file **grid.cpp** give more details about wh
 
 ## Recommended implementation order
 
-You will need to write the ten Grid interface functions in **grid.cpp** and the function TestSaveLoad in **main.cpp**.  Here is a suggested order of implementation.
+You will need to write the ten _Grid_ interface functions in **grid.cpp** and the function TestSaveLoad in **main.cpp**.  Here is a suggested order of implementation.
 
 1.	Make sure you put your name in the file headers for **main.cpp** and **grid.cpp** as co-author.
-2.	Stub out all ten Grid interface functions.  That means, add the function to **grid.cpp**.  Each function body should initially contain the line
+2.	Stub out all ten _Grid_ interface functions.  That means, add the function to **grid.cpp**.  Each function body should initially contain the line
 ```
 assert(false);
 ```
-You will remove this line when you implement the function.  The point of this line is to warn you that the function hasn’t been implement if it gets called before it is implemented.
+You will remove this line when you implement the function.  The point of this line is to warn you that the function hasn’t been implemented if it gets called.
 
-3.	Build your understanding of the Grid ADT by implementing the following interface functions:
+3.	Build your understanding of the _Grid_ ADT by implementing the following interface functions:
 
 ```
 void Init(Grid& grid);
@@ -137,9 +135,9 @@ void GetShip(const Grid& grid, int i, Ship& ship);
 SquareStatus GetSquareStatus(const Grid& grid, int row, int column);
 ```
 
-  None of these functions require any conditional logic.  Only Init requires loops.  Once you are clear what they do they should be easy to implement.
+  None of these functions require any conditional logic.  Only _Init_ requires loops.  Once you are clear what they do they should be easy to implement.
 
-  It is a good programming practice to check the validity of the parameters “i”, “row”, and “column” when present.  Use assert statements to verify that they make sense, e.g. assert that “i” is non-negative and less than the number of ships deployed, assert that “row” is non-negative and less than COUNT_ROWS, and assert that “column” is non-negative and less than COUNT_COLUMNS.
+  It is a good programming practice to check the validity of the parameters “i”, “row”, and “column” when present.  Use assert statements to verify that they make sense, e.g. assert that “i” is non-negative and less than the number of ships deployed, assert that “row” is non-negative and less than _COUNT_ROWS_, and assert that “column” is non-negative and less than _COUNT_COLUMNS_.
 
 4.	Next focus on getting manual ship placement working.  The command line interface provided for you will make it easy for you to test things, but you are going to have to implement the following functions before you can run it:
 
@@ -196,7 +194,12 @@ To test that _LoadShips_ restores the grid configuration correctly, finish your 
 
 ## Testing
 
-Make sure you test your code thoroughly.  For your convenience, we've included the same four test files from Lab 2: **noReviews.txt**, **aFewReviews.txt**, **tooManyReviews.txt**, and **movieReviews.txt**.  
+Make sure you test your code thoroughly.  
+* Check that your random placement agrees with the screen shot when 1 is entered as a random seed, and try other seeds as well.
+* For manual ship placement, make sure you test both ship orientations in situations where they can be placed or they cannot be placed because they would extend outside the grid or overlap a ship that already has been placed.
+* Examine the contents of the file produced when you save the configuration to file.  
+* Make sure saving fails when you give an invalid file name.  
+* Write a quick test program to make sure loading fails when the file doesn't doesn't exist or contains an invalid ship configuration.
 
 ## Style
 
