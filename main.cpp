@@ -77,6 +77,8 @@ int main() {
 //      countShips - number of ships in the array
 //  Returns:
 //      nothing
+//  Possible Errors:
+//      none
 void ManuallyPlaceShips(Grid& grid, Ship ships[], int countShips) {
     Init(grid);
     for (int i = 0; i < countShips; i ++ ) {
@@ -125,6 +127,11 @@ void ManuallyPlaceShips(Grid& grid, Ship ships[], int countShips) {
 //      grid - a grid
 //  Returns:
 //      true if no errors on save or load and grids identical or false otherwise
+//  Possible Errors:
+//      error opening either file
+//      file write error
+//      file read error
+//      saved and loaded configurations don't match
 bool TestSaveLoad(Grid& grid) {
     // *** You need to implement this function
     assert(false);
