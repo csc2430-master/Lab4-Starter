@@ -17,6 +17,8 @@
 //      grid - a grid struct
 // Returns:
 //      nothing
+// Possible Errors:
+//      none
 
 //***Add your implementation of Init here
 
@@ -41,6 +43,12 @@
 //      file - an open file stream
 // Returns:
 //      succcess/failure
+// Possible Errors:
+//     File read error
+//     # of ships out of range
+//     Value of isVertical, startRow or startColumn out of range
+//     Ship placement would extend beyong grid
+//     Ship placement would overlap ship that has already been placed
 
 //***Add your implementation of LoadShips here
 
@@ -51,6 +59,8 @@
 //      file - an open file stream
 // Returns:
 //      succcess/failure
+// Possible Errors:
+//     File write error
 
 //***Add your implementation of SaveShips here
 
@@ -67,6 +77,8 @@
 //      countShips - the number of ships in the array -- must not exceed SHIPS_MAX
 // Returns:
 //      nothing
+// Possible Errors:
+//      none
 
 //***Add your implementation of RandomlyPlaceShips here
 
@@ -82,69 +94,72 @@
 //      startColumn - column of uppermost square (if isVertical) or leftmost square (if !isVertical)
 // Returns:
 //      true if the ship can be placed, false if it would extend outside grid or overlap another ship
+// Possible Errors:
+//      Too many ships deployed
+//      Size or position of ship is not reasonable
+//      Ship placement would extend outside gird
+//      Ship placement would overlap another ship
+
 
 //***Add your implementation of AddShip here
 
-
 // Returns the number of ships that have been sunk
-//
 // Parameters:
 //      grid - a grid struct
-//
 // Returns:
 //      number of ships
+// Possible Errors:
+//      none
 
 //***Add your implementation of GetShipsSunk here
 
-
 // Returns the number of ships placed on the grid
-//
 // Parameters:
 //      grid - a grid struct
-//
 // Returns:
 //      number of ships
+// Possible Errors:
+//      none
 
 //***Add your implementation of GetShipsDeployed here
 
 
 // Retrieves information about the i-th ship.  Meant to used
 // in a loop to fetch information about each the ships
-//
 // Parameters:
 //      grid - a grid struct
 //      i - index of ship that ranges between 0 to number of ships deployed -1
 //      ship - struct to be filled with information about ship
-//
 // Returns:
 //      nothing
+// Possible Errors:
+//      asserts that index is within range
 
 //***Add your implementation of GetShip here
 
 
 // Determines if there is a ship covering the specified square.  If found, returns
 // the configuration index of the ship
-//
 // Parameters:
 //      grid - a grid struct
 //      row - row of the square
 //      column - column of the square
-//
 // Returns:
 //      < 0 if not found, otherwise returns the index of the ship
+// Possible Errors:
+//      none
 
 //***Add your implementation of FindShip here
 
-
 // Gets the status of the specified square
-//
 // Parameters:
 //      grid - a grid struct
 //      row - row of the square
 //      column - column of the square
-//
 // Returns:
 //      status of the square
+// Possible Errors:
+//      asserts that row nad column are within range
 
 //***Add your implementation of GetSquareStatus here
 
