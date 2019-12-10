@@ -17,6 +17,8 @@
 //      grid - a grid struct
 // Returns:
 //      nothing
+//  Possible Errors:
+//      none
 void PrintGrid(const Grid& grid) {
     int shipCount;
 
@@ -87,6 +89,8 @@ void PrintGrid(const Grid& grid) {
 //      grid2 - another grid struct
 // Returns:
 //      true if they are the same, false otherwise
+//  Possible Errors:
+//      none
 bool CompareConfigurations(const Grid& grid1, const Grid& grid2) {
     bool areEqual;
 
