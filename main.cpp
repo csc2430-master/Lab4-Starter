@@ -17,7 +17,7 @@ bool TestSaveLoad(Grid& grid);
 //
 // Main program:
 //
-// This program exercises the grid functions implmemented in this lab.  It starts by offering the user the choice
+// This program exercises the grid functions implemented in this lab.  It starts by offering the user the choice
 // whether to randomly place ships on the grid, or manually place them.  If manual placement is selected, then it
 // will ask for the location that user wants for each of the five ships.
 //
