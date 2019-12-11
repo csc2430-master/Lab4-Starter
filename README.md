@@ -31,7 +31,7 @@ If the user tries to enter a ship placement which doesn't fit within the 10x10 g
 ## Files you are given
 In this lab, you are given all the files you will need for your CLion project.  
 
-* **CMakeLists.txt** - This contains the information necessary to build the file.  This file should not be modified.
+* **CMakeLists.txt** - This contains the information necessary to build the project.  This file should not be modified.
 
 *	**main.cpp** – This file contains the main routine which drives the command line user interface, and two functions _ManuallyPlaceShips_ and _TestSaveLoad_.  The main routine and _ManuallyPlaceShips_ have been implemented for you and should not be modified.  You are required to implement _TestSaveLoad_. Doing so will give you more practice working with input and output file streams.
 
@@ -246,9 +246,9 @@ Each subordinate function should also start with a header that describes what it
 You should include additional comments in your code to describe what you are doing.   If it is hard to understand what a variable is for, add a comment after it.   It possible, though, to put in too many comments, so be judicious and make sure you have time left to do well in your other classes when it comes to commenting.
 
 ## Submitting your code
-Your solution should be contained within files that were provided.  You MUST NOT modify the main routine, **CMakeFiles.txt** or **database.h**.
+Your solution should be contained within files that were provided.  You MUST NOT modify the main routine, **CMakeFiles.txt**, **helperCode.h**, **helperCode.cpp**, or  **grid.h**.  Do not modify the main routine or the routine _ManuallyPaceShips_.
 
-Make sure you test your code thoroughly.  We will try your code with our own test files, and we will programmatically test your database ADT with our own test program.  
+Make sure you test your code thoroughly.  We will try your code with our own test files, and we will programmatically test your _Grid_ ADT with our own test program.  
 
 Your code needs to be submitted through GitHub Classroom.  You will need to push your last version of your program before the lab deadline. As a good programming practice remember to commit frequently and to push every time you have a functioning version of your code.
 
