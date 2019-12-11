@@ -211,6 +211,8 @@ Your program needs to be orderly and readable.  If you are working a development
   *	Naming conventions for identifiers (camelCase for variables, CamelCase for function names. First word of a function name typically should be a verb.)
   *	No use of global variables. Global variables sometimes are appropriate, but not in the assignments we will be giving this quarter.
   *	Making sure *struct* and object parameters are passed by reference (and declared const if appropriate)
+
+Do NOT violate the ADT encapsulation.  Only the functions declared in **grid.h** should access the fields and array elements of the _Grid_ structure.
   
 ## Documentation
     
