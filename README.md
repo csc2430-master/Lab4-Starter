@@ -4,7 +4,7 @@ Begin a three part series of labs where you will implement the class Battleship 
 
 ![Lab 6 Screen Shot](/images/image1.png)
 
-In this lab you will do an initial implementation of a _`Grid`_ ADT which will maintain the location and status of this ships that a player has placed on the grid. The main new C++ concept that you will get to practice is working with two dimensional arrays.
+In this lab you will do an initial implementation of a `Grid` ADT which will maintain the location and status of this ships that a player has placed on the grid. The main new C++ concept that you will get to practice is working with two dimensional arrays.
 
 ## Sample Run
 
@@ -24,7 +24,7 @@ We aren't going to show you the whole manual ship placement run because it's ver
 
 ![Manual Ship Placement2](/images/image4.png)
 
-If the user tries to enter a ship placement which doesn't fit within the 10x10 grid, or overlaps a ship that has already been placed on the grid, no placement is done.  No changes to the _Grid_ data structure should be made in these error situations.  It's important that the user can continue on and try finishing adding ships.  The following screen shot shows an example of how the user tried to add a ship that overlapped the first ship, and then tried to add a ship that would have extended outside the grid, and then finally entered a correct ship placement.
+If the user tries to enter a ship placement which doesn't fit within the 10x10 grid, or overlaps a ship that has already been placed on the grid, no placement is done.  No changes to the `Grid` data structure should be made in these error situations.  It's important that the user can continue on and try finishing adding ships.  The following screen shot shows an example of how the user tried to add a ship that overlapped the first ship, and then tried to add a ship that would have extended outside the grid, and then finally entered a correct ship placement.
 
 ![Manual Ship Placement3](/images/image5.png)
 
@@ -33,19 +33,19 @@ In this lab, you are given all the files you will need for your CLion project.
 
 * **CMakeLists.txt** - This contains the information necessary to build the project.  This file should not be modified.
 
-*	**main.cpp** – This file contains the main routine which drives the command line user interface, and two functions _ManuallyPlaceShips_ and _TestSaveLoad_.  The main routine and _ManuallyPlaceShips_ have been implemented for you and should not be modified.  You are required to implement _TestSaveLoad_. Doing so will give you more practice working with input and output file streams.
+* **main.cpp** – This file contains the main routine which drives the command line user interface, and two functions `ManuallyPlaceShips` and `TestSaveLoad`.  The main routine and `ManuallyPlaceShips` have been implemented for you and should not be modified.  You are required to implement `TestSaveLoad`. Doing so will give you more practice working with input and output file streams.
 
-*	**helperCode.h** – This file declares two functions implemented in **helperCode.cpp**.  This file has been completed for you and should not be modified.
+* **helperCode.h** – This file declares two functions implemented in **helperCode.cpp**.  This file has been completed for you and should not be modified.
 
-*	**helperCode.cpp** – This file implements the useful functions _PrintGrid_ and _CompareGridConfigurations_ which are called by the main program.  This file has been completed for you and should not be modified.
+* **helperCode.cpp** – This file implements the useful functions `PrintGrid` and `CompareGridConfigurations` which are called by the main program.  This file has been completed for you and should not be modified.
 
-*	**grid.h** – This file contains the declaration of the _Grid_ ADT and the interface functions that used to manipulate the grid.  This file has been completed for you and should not be modified.
+* **grid.h** – This file contains the declaration of the `Grid` ADT and the interface functions that used to manipulate the grid.  This file has been completed for you and should not be modified.
 .
-*	**grid.cpp** – This is the file where you will do most of your work.   The _#include_ lines that you will need have been added, as well as header comments for each of the interface function.  You will need to fix the file header comment, and implement the ten interface functions.
+* **grid.cpp** – This is the file where you will do most of your work.   The `#include` lines that you will need have been added, as well as header comments for each of the interface function.  You will need to fix the file header comment, and implement the ten interface functions.
 
-##	The _Grid_ ADT
+##	The `Grid` ADT
 
-A _struct_ is used to group the information about the grid into a single “package.”  
+A `struct` is used to group the information about the grid into a single “package.”  
 
 ```
 struct Grid {
@@ -55,7 +55,7 @@ struct Grid {
     SquareStatus squareStatus[COUNT_ROWS][COUNT_COLUMNS];
 };
 ```
-As you can see it stores an array of _ship_, where _ship_ is specified by:
+As you can see it stores an array of `ship`, where `ship` is specified by:
 
 ```
 // Describes a ship and its placement on the grid
@@ -77,9 +77,9 @@ struct Ship {
     int hits;
 };
 ```
-In addition, it stores the count of ships that have been placed on the grid in the _shipsDeployed_ member, and the number of these ships which have already been sunk in the _shipsSunk member_.  In this lab _shipsSunk_ will always be zero.  The _squareStatus_ member is a two-dimensional array that keeps track of the status of each square of the grid.  In this lab each square will either be marked as _WATER_ or _SHIP_, but in future labs, it could also be marked as _MISS_, _HIT_, or _SUNK_.
+In addition, it stores the count of ships that have been placed on the grid in the `shipsDeployed` member, and the number of these ships which have already been sunk in the `shipsSunk` member.  In this lab `shipsSunk` will always be zero.  The `squareStatus` member is a two-dimensional array that keeps track of the status of each square of the grid.  In this lab each square will either be marked as `WATER` or `SHIP`, but in future labs, it could also be marked as `MISS`, `HIT`, or `SUNK`.
   . 
-The _Grid_ ADT interface functions that you will implement in this lab are:
+The `Grid` ADT interface functions that you will implement in this lab are:
 
 ```
 // Initialize the grid struct
@@ -112,7 +112,7 @@ int FindShip(const Grid& grid, int row, int column);
 // Gets the status of the specified square
 SquareStatus GetSquareStatus(const Grid& grid, int row, int column);
 ```
-The function header comments in the file **grid.cpp** give more details about what each of these functions should do.  Some of them (_Init_, _GetShipsSunk_, _GetShipsDeployed_, _GetShip_, _GetSquareStatus_) are very simple, and should not take you much time to write.
+The function header comments in the file **grid.cpp** give more details about what each of these functions should do.  Some of them (`Init`, `GetShipsSunk`, `GetShipsDeployed`, `GetShip`, `GetSquareStatus`) are very simple, and should not take you much time to write.
 
 ## Recommended implementation order
 
