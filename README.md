@@ -1,10 +1,10 @@
 # LAB 4 - Battleship Game, Part 1 - Ship Placement
 ## Goal
-Begin a three part series of labs where you will implement the class Battleship game (https://en.wikipedia.org/wiki/Battleship_(game)).  When you finish the final lab, you will be able to play against the computer as pictured below:
+Begin a three part series of labs where you will implement the class Battleship game (https://en.wikipedia.org/wiki/Battleship_(game)).  When you finish the final lab of this sequence, you will be able to play against the computer as pictured below:
 
 ![Lab 6 Screen Shot](/images/image1.png)
 
-In this lab you will do an initial implementation of a _Grid_ ADT which will maintain the location and status of this ships that a player has placed on the grid. The main new C++ concept that you will get to practice is working with two dimensional arrays.
+In this lab you will do an initial implementation of a _`Grid`_ ADT which will maintain the location and status of this ships that a player has placed on the grid. The main new C++ concept that you will get to practice is working with two dimensional arrays.
 
 ## Sample Run
 
