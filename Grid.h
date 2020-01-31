@@ -32,25 +32,25 @@ enum SquareStatus { WATER, SHIP, MISS, HIT, SUNK };
 //      startRow - row (0-9) of uppermost (if vertical) or leftmost (if horizontal) square it occupies
 //      startColumn - column (0-9) of uppermost (if vertical) or leftmost (if horizontal) square it occupies
 //      hits - number of different squares that ship occupies that have been hit, it's sunk if hits == size
-typedef struct {
+struct Ship {
     string name;
     int size;
     bool isVertical;
     int startRow;
     int startColumn;
     int hits;
-} Ship;
+};
 
 // Describes the state of the grid
 //      ships - the ships placed on teh grid
 //      shipsDeployed -- the number of ships that are on the grip (<= SHIPS_MAX)
 //      shipsSunk -- the number of ships that have been sunk (game is over if == shipsDeployed)
-typedef struct {
+struct Grid {
     Ship ships[SHIPS_MAX];
     int shipsDeployed;
     int shipsSunk;
     SquareStatus squareStatus[COUNT_ROWS][COUNT_COLUMNS];
-} Grid;
+};
 
 // Access functions
 void Init(Grid& grid);
