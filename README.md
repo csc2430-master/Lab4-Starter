@@ -48,12 +48,12 @@ In this lab, you are given all the files you will need for your CLion project.
 A _struct_ is used to group the information about the grid into a single “package.”  
 
 ```
-typedef struct {
+struct Grid {
     Ship ships[SHIPS_MAX];
     int shipsDeployed;
     int shipsSunk;
     SquareStatus squareStatus[COUNT_ROWS][COUNT_COLUMNS];
-} Grid;
+};
 ```
 As you can see it stores an array of _ship_, where _ship_ is specified by:
 
@@ -68,14 +68,14 @@ As you can see it stores an array of _ship_, where _ship_ is specified by:
 //		     it occupies
 //      hits -       number of different squares that ship occupies that have been hit, it's sunk if
 //		     hits == size
-typedef struct {
+struct Ship {
     string name;
     int size;
     bool isVertical;
     int startRow;
     int startColumn;
     int hits;
-} Ship;
+};
 ```
 In addition, it stores the count of ships that have been placed on the grid in the _shipsDeployed_ member, and the number of these ships which have already been sunk in the _shipsSunk member_.  In this lab _shipsSunk_ will always be zero.  The _squareStatus_ member is a two-dimensional array that keeps track of the status of each square of the grid.  In this lab each square will either be marked as _WATER_ or _SHIP_, but in future labs, it could also be marked as _MISS_, _HIT_, or _SUNK_.
   . 
