@@ -3,45 +3,49 @@
 // Purpose: Program for testing the Battleship "grid" ADT.
 //
 // Class: CSC 2430 Winter 2020
-// Authors: Max Benson and <please fill this in>
+// Author: Max Benson
 //
 #include <iostream>
-#include <assert.h>
 #include "grid.h"
 #include "helperCode.h"
 
 //Forward declarations
-void ManuallyPlaceShips(Grid& grid, Ship ships[], int countShips);
-bool TestSaveLoad(Grid& grid);
+void ManuallyPlaceShips(Grid& grid, const Ship ships[], int countShips);
+bool LoadShipsOnGrid(const string& fileName, Grid &grid);
+bool SaveShipsOnGrid(const string&fileName, const Grid& grid);
 
 //
 // Main program:
 //
 // This program exercises the grid functions implemented in this lab.  It starts by offering the user the choice
-// whether to randomly place ships on the grid, or manually place them.  If manual placement is selected, then it
-// will ask for the location that user wants for each of the five ships.
+// whether to 1) randomly place ships on the grid, 2) manually place ships on a grid, or 3) Load from file
 //
-// After ships have been placed on the grid, it will save the ship configuration to a file of the user's choosing
-// and then reload the placement from file into a new grid.  The two grids are then compared to make sure they
-// are the same.
+// After ships have been placed on the grid, it prints the configuration.
+//
+// Finally it gives the user a chance to save the grid to a file
+//
 int main() {
     string command;
     Ship   shipsToPlace[] =  { { "Submarine", 3 },
-                               { "Battleship", 4 },
-                               { "Destroyer",  3 },
-                               { "PatrolBoat", 2 },
-                               { "Carrier",    5 } };
+                                        { "Battleship", 4 },
+                                        { "Destroyer",  3 },
+                                        { "PatrolBoat", 2 },
+                                        { "Carrier",    5 } };
     Grid grid;
+
 
     // Determine how ships should be placed
     do {
-        cout << "Enter M to manually place ships, R to randomly place ships: ";
+        cout << "Enter M to manually place ships, R to randomly place ships, L to load from file: ";
         cin >> command;
-    } while (command != "M" && command != "R");
+    } while (command != "M" && command != "R" && command != "L");
 
     // Place the ships on the grid
     if (command == "M") {
         ManuallyPlaceShips(grid, shipsToPlace, sizeof(shipsToPlace)/sizeof(shipsToPlace[0]));
+
+        // Print the ships to verify correctness
+        PrintGrid(grid);
     }
     else if (command == "R") {
         int randomSeed;
@@ -54,16 +58,39 @@ int main() {
         // Do the random placement
         RandomlyPlaceShips(grid, shipsToPlace, sizeof(shipsToPlace)/sizeof(shipsToPlace[0]));
 
+        // Print the ships to verify correctness
+        PrintGrid(grid);
+    }
+    else if (command == "L") {
+        string fileName;
+
+        // Get the file name to load
+        cout << "File name: ";
+        cin >> fileName;
+        if (LoadShipsOnGrid(fileName, grid)) {
+            // Print the ships to verify correctness
+            PrintGrid(grid);
+        }
     }
 
-    // Print the ships to verify correctness
-    PrintGrid(grid);
 
-    // Test save and reload configuration
-    if (TestSaveLoad(grid)) {
-        cout << "Load worked properly" << endl;
+    // Save configuration if desired (but not when we just loaded from file)
+    if (command != "L") {
+        do {
+            cout << "Do you want to save the configuration? (Y/N): ";
+            cin >> command;
+        } while (command != "Y" && command != "N");
+
+        if (command == "Y") {
+            string fileName;
+
+            // Get the file name to load
+            cout << "File name: ";
+            cin >> fileName;
+
+            SaveShipsOnGrid(fileName, grid);
+        }
     }
-
     return 0;
 }
 
@@ -79,15 +106,22 @@ int main() {
 //      nothing
 //  Possible Errors:
 //      none
-void ManuallyPlaceShips(Grid& grid, Ship ships[], int countShips) {
+void ManuallyPlaceShips(Grid& grid, const Ship ships[], int countShips) {
     Init(grid);
     for (int i = 0; i < countShips; i ++ ) {
         bool firstTime;
         int isVertical;
         int startRow;
         int startColumn;
+        string command;
 
-        PrintGrid(grid);
+        do {
+            cout << "Do you want to print the grid? (Y/N): ";
+            cin >> command;
+        } while(command != "Y" && command != "N");
+        if (command == "Y") {
+            PrintGrid(grid);
+        }
 
         firstTime = true;
         do {
@@ -119,20 +153,32 @@ void ManuallyPlaceShips(Grid& grid, Ship ships[], int countShips) {
     }
 }
 
-// This function tests the grid save and load functionality.  It will prompt the
-//      the user for a file name to same the grid to.  It will save the grid
-//      then reload the ship configuration into a new grid.  It then verifies
-//      that the original grid and the new one are identical.
+// This function saves the ships on a grid to file.  It attempts to open the file
+//      given by fileName.
+//      -   If it cannot be opened, it prints an appropriate error message and returns.
+//      -   If it can be opened it will call the SaveShips interface method
+//          to save the ships.  If any error occurs saving the ships, an appropriate error
+//          message is printed.  In either case it closes the file and returns.
 //  Parameters:
+//      fileName - name of file to save to
 //      grid - a grid
 //  Returns:
-//      true if no errors on save or load and grids identical or false otherwise
+//      true if no errors, false otherwise
 //  Possible Errors:
-//      error opening either file
+//      error opening the file
 //      file write error
+
+// This function loads ships from file and places them on a grid.  It attempts to open the file
+//      given by fileName.
+//      -   If it cannot be opened, it prints an appropriate error message and returns.
+//      -   If it can be opened it will call the LoadShips interface method
+//          to load the ships.  If any error occurs loading the ships, an appropriate error
+//          message is printed.  In either case it closes the file and returns.
+//  Parameters:
+//      fileName - name of file to load from
+//      grid - a grid
+//  Returns:
+//      true if no errors, false otherwise
+//  Possible Errors:
+//      error opening the file
 //      file read error
-//      saved and loaded configurations don't match
-bool TestSaveLoad(Grid& grid) {
-    // *** You need to implement this function
-    assert(false);
-}
