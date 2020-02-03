@@ -3,7 +3,8 @@
 // Purpose: Program for testing the Battleship "grid" ADT.
 //
 // Class: CSC 2430 Winter 2020
-// Author: Max Benson
+//
+// Author: Max Benson and <please fill this in>
 //
 #include <iostream>
 #include "grid.h"
