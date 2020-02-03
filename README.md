@@ -12,13 +12,13 @@ In this first lab we will simplify things by not using a graphical display.  Ins
 
 The following screen shot shows a run where random ship placement was chosen:
 
-![Random Ship Placement](/images/image2.png)
+![Random Ship Placement](/images/image3.png)
 
 As you can see, when random ship placement is chosen, the user has to enter an integer for a "random seed."  Different random seeds will usually give you different ship placements, but you get the same sequence of random numbers if you enter the same seed each time.  Random ship placement makes the game more fun, but repeatability makes testing easier!
 
 Next, here's a screen shot for the first part of a run where manual ship placement was chosen:
 
-![Manual Ship Placement1](/images/image3.png)
+![Manual Ship Placement1](/images/image2.png)
 
 If the user tries to enter a ship placement which doesn't fit within the 10x10 grid, or overlaps a ship that has already been placed on the grid, no placement is done.  No changes to the _Grid_ data structure should be made in these error situations.  It's important that the user can continue on and try finishing adding ships.  The following screen shot shows an example of cases where the user tried to  add ships that would have extended outside the grid or overlap another ship.
 
