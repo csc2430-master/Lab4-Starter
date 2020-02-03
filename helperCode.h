@@ -13,7 +13,6 @@
 #include "grid.h"
 
 void PrintGrid(const Grid& grid);
-bool CompareConfigurations(const Grid& grid1, const Grid& grid2);
 
 
 
