@@ -20,7 +20,7 @@ Next, here's a screen shot for the first part of a run where manual ship placeme
 
 ![Manual Ship Placement1](/images/image3.png)
 
-If the user tries to enter a ship placement which doesn't fit within the 10x10 grid, or overlaps a ship that has already been placed on the grid, no placement is done.  No changes to the _Grid_ data structure should be made in these error situations.  It's important that the user can continue on and try finishing adding ships.  The following screen shot shows an example of cases where the user tried to  add ships that would have extended outside the grid or overlap another ship.
+If the user tries to enter a ship placement which doesn't fit within the 10x10 grid, or overlaps a ship that has already been placed on the grid, no placement is done.  No changes to the `Grid` data structure should be made in these error situations.  It's important that the user can continue on and try finishing adding ships.  The following screen shot shows an example of cases where the user tried to  add ships that would have extended outside the grid or overlap another ship.
 
 ![Manual Ship Placement2](/images/image2.png)
 
@@ -51,7 +51,7 @@ struct Grid {
     SquareStatus squareStatus[COUNT_ROWS][COUNT_COLUMNS];
 };
 ```
-As you can see it stores an array of `ship`, where `ship` is specified by:
+As you can see it stores an array of `Ship` called `ships`, where `Ship` is specified by:
 
 ```
 // Describes a ship and its placement on the grid
@@ -112,16 +112,16 @@ The function header comments in the file **grid.cpp** give more details about wh
 
 ## Recommended implementation order
 
-You will need to write the ten _Grid_ interface functions in **grid.cpp** and the function TestSaveLoad in **main.cpp**.  Here is a suggested order of implementation.
+You will need to write the ten `Grid` interface functions in **grid.cpp** and the function TestSaveLoad in **main.cpp**.  Here is a suggested order of implementation.
 
 1.	Make sure you put your name in the file headers for **main.cpp** and **grid.cpp** as co-author.
-2.	Stub out all ten _Grid_ interface functions.  That means, add the function to **grid.cpp**.  Each function body should initially contain the line
+2.	Stub out all ten `Grid` interface functions.  That means, add the function to **grid.cpp**.  Each function body should initially contain the line
 ```
 assert(false);
 ```
 You will remove this line when you implement the function.  The point of this line is to warn you that the function hasn’t been implemented if it gets called.
 
-3.	Build your understanding of the _Grid_ ADT by implementing the following interface functions:
+3.	Build your understanding of the `Grid` ADT by implementing the following interface functions:
 
 ```
 void Init(Grid& grid);
@@ -131,9 +131,9 @@ void GetShip(const Grid& grid, int i, Ship& ship);
 SquareStatus GetSquareStatus(const Grid& grid, int row, int column);
 ```
 
-  None of these functions require any conditional logic.  Only _Init_ requires loops.  Once you are clear what they do they should be easy to implement.
+  None of these functions require any conditional logic.  Only `Init` requires loops.  Once you are clear what they do they should be easy to implement.
 
-  It is a good programming practice to check the validity of the parameters “i”, “row”, and “column” when present.  Use assert statements to verify that they make sense, e.g. assert that “i” is non-negative and less than the number of ships deployed, assert that “row” is non-negative and less than _COUNT_ROWS_, and assert that “column” is non-negative and less than _COUNT_COLUMNS_.
+  It is a good programming practice to check the validity of the parameters `i`, `row`, and `column` when present.  Use assert statements to verify that they make sense, e.g. assert that `i` is non-negative and less than the number of ships deployed, assert that `row` is non-negative and less than `COUNT_ROWS`, and assert that `column` is non-negative and less than `COUNT_COLUMNS`.
 
 4.	Next focus on getting manual ship placement working.  The command line interface provided for you will make it easy for you to test things, but you are going to have to implement the following functions before you can run it:
 
@@ -144,14 +144,14 @@ int FindShip(const Grid& grid, int row, int column);
 
   *	When adding a ship, you need to make sure three things are true:
       *	You have room for another ship in the array
-      *	The ship’s placement fits within the _COUNT_ROWS x COUNT_COLUMNS_ grid
+      *	The ship’s placement fits within the `COUNT_ROWS` x `COUNT_COLUMNS` grid
       *	The ship’s placement would not overlap a ship already placed on the grid.
 
-  If any of these things fail to be true, you should return *false*.  Make sure you do NOT modify the grid struct
+  If any of these things fail to be true, you should return `false`.  Make sure you do **NOT** modify the grid struct
 
-  *	When implementing both functions, don’t forget to handle the cases when _isVertical_ is _true_, and when _isVertical_ is _false_.
+  *	When implementing both functions, don’t forget to handle the cases when `isVertical` is `true`, and when `isVertical` is `false`.
 
-  * Once you have these functions implemented, use the manual ship placement interface to make sure that the ship displays properly on the grid after you add it.  You should see the ship displayed along with the first letter of the name of the ship.  You also MUST test that that AddShip returns *false* when you specify a placement that would extend outside the grid or overlap a ship.  
+  * Once you have these functions implemented, use the manual ship placement interface to make sure that the ship displays properly on the grid after you add it.  You should see the ship displayed along with the first letter of the name of the ship.  You also MUST test that that `AddShip` returns `false` when you specify a placement that would extend outside the grid or overlap a ship.  
 
 5.	Now get random placement of ships working.  For this you need to implement:
 
@@ -159,12 +159,12 @@ int FindShip(const Grid& grid, int row, int column);
 void RandomlyPlaceShips(Grid& grid, const Ship ships[], int countShips);
 ```
 
-For each ship, you will use the _rand()_ library function to generate random values for _isVertical_, _startRow_, and _startColumn_ and then call _AddShip_.  If _AddShip_ returns _false_, then keep retrying, generating new sets of random values until it returns true.
+For each ship, you will use the `rand()` library function to generate random values for `isVertical`, `startRow`, and `startColumn` and then call `AddShip`.  If `AddShip` returns `false`, then keep retrying, generating new sets of random values until it returns true.
 
-Note: to get a random _bool_ value, use the expression _rand() % 2_, to get a random value for row use the expression _rand() % COUNT_ROWS_, etc.
+Note: to get a random `bool` value, use the expression `rand() % 2`, to get a random value for row use the expression `rand() % COUNT_ROWS`, etc.
 .  
 
-6.	The final step is to get load and save working.  Start by writing _SaveShips_.    Here’s an example of what it should write to file stream:
+6.	The final step is to get load and save working.  Start by writing `SaveShips`. Here’s an example of what it should write to file stream:
 
 ```
 5
@@ -180,15 +180,15 @@ Carrier
 5 1 4 5
 ```
 
-The first line gives the number of ships.  Then for each ship, two lines are output.  The first of these two lines gives the ship’s _name_.  The second line has the values for _size_, _isVertical_, _startRow_, and _startColumn_.  The function returns _true_ if no errors occur on the file stream, otherwise _false_.
+The first line gives the number of ships.  Then for each ship, two lines are output.  The first of these two lines gives the ship’s `name`.  The second line has the values for `size`, `isVertical`, `startRow`, and `startColumn`.  The function returns `true` if no errors occur on the file stream, otherwise `false`.
 
-Then, in **main.cpp**, implement _SaveShipsOnGrid_.  This function will attempt the open the file specified by the _fileName_ parameter.  If it cannot open the file, it should print an appropriate error message and return _false_.  Else, it should call the _SaveShips_ interface function.  It should then close the file, and return _true_ or _false_ depending on the return value of _SaveShips_.
+Then, in **main.cpp**, implement `SaveShipsOnGrid`.  This function will attempt the open the file specified by the `fileName` parameter.  If it cannot open the file, it should print an appropriate error message and return `false`.  Else, it should call the `SaveShips` interface function.  It should then close the file, and return `true` or `false` depending on the return value of `SaveShips`.
 
 Test your save routines by doing a manual or random placement of ships, and selecting the save option.  View the contents of the file that was produced to see if it is correct.
 
-Then you are ready to implement  _LoadShips_.  If errors occur reading information from the file, or _AddShip_ returns _false_, you should print an informative error message.
+Then you are ready to implement  `LoadShips`.  If errors occur reading information from the file, or `AddShip` returns `false`, you should print an informative error message.
 
-Finally you should implement _LoadShipsOnGrid_ in **main.cpp**.  This function is very similar to _SaveShipsOnGrid_, except you are opening an input file stream.
+Finally you should implement `LoadShipsOnGrid` in **main.cpp**.  This function is very similar to `SaveShipsOnGrid`, except you are opening an input file stream.
 
 At minimum, you should test your load functionality using the provided files **saveTest1.txt**, **saveTest2.txt**, **saveTest3.txt**, **saveOther.txt**, and **tooMany.txt**.  Make sure it handles the case of trying to load a file that does not exist gracefully.
 
@@ -201,6 +201,7 @@ Make sure you test your code thoroughly.
 * Examine the contents of the file produced when you save the configuration to file.  
 * Make sure saving fails when you give an invalid file name.  
 * Write a quick test program to make sure loading fails when the file isn't formatted correctly.
+* Your file output should be **identical** to the output that is provided to you.
 
 ## Style
 
@@ -213,7 +214,7 @@ Your program needs to be orderly and readable.  If you are working a development
   *	No use of global variables. Global variables sometimes are appropriate, but not in the assignments we will be giving this quarter.
   *	Making sure *struct* and object parameters are passed by reference (and declared const if appropriate)
 
-Do NOT violate the ADT encapsulation.  Only the functions declared in **grid.h** should access the fields and array elements of the _Grid_ structure.
+Do NOT violate the ADT encapsulation.  Only the functions declared in **grid.h** should access the fields and array elements of the `Grid` structure.
 
 ## Documentation
 
@@ -247,11 +248,11 @@ Each subordinate function should also start with a header that describes what it
 You should include additional comments in your code to describe what you are doing.   If it is hard to understand what a variable is for, add a comment after it.   It possible, though, to put in too many comments, so be judicious and make sure you have time left to do well in your other classes when it comes to commenting.
 
 ## Submitting your code
-Your solution should be contained within files that were provided.  You MUST NOT modify the main routine, **CMakeFiles.txt**, **helperCode.h**, **helperCode.cpp**, or  **grid.h**.  Do not modify the main routine or the routine _ManuallyPaceShips_.
+Your solution should be contained within files that were provided.  You MUST NOT modify the main routine, **CMakeFiles.txt**, **helperCode.h**, **helperCode.cpp**, or  **grid.h**.  Do not modify the main routine or the routine `ManuallyPaceShips`.
 
-Make sure you test your code thoroughly.  We will try your code with our own test files, and we will programmatically test your _Grid_ ADT with our own test program.  
+Make sure you test your code thoroughly.  We will try your code with our own test files, and we will programmatically test your `Grid` ADT with our own test program.  
 
-Your code needs to be submitted through GitHub Classroom.  You will need to push your last version of your program before the lab deadline. As a good programming practice remember to commit frequently and to push every time you have a functioning version of your code.
+You will need to push your last version of your program before the lab deadline. As a good programming practice remember to commit frequently and to push every time you have a functioning version of your code.
 
 ## Grading
 Correctness is essential.  Make sure your solution builds as described above and correctly handles the test cases displayed in the screen shot.  We will test on other input values as well. Your code must compile and should not have runtime errors (crash).
