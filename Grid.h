@@ -42,7 +42,7 @@ struct Ship {
 };
 
 // Describes the state of the grid
-//      ships - the ships placed on teh grid
+//      ships - the ships placed on the grid
 //      shipsDeployed -- the number of ships that are on the grip (<= SHIPS_MAX)
 //      shipsSunk -- the number of ships that have been sunk (game is over if == shipsDeployed)
 struct Grid {
@@ -55,7 +55,7 @@ struct Grid {
 // Access functions
 void Init(Grid& grid);
 bool LoadShips(Grid& grid, ifstream& file);
-bool SaveShips(Grid& grid, ofstream& file);
+bool SaveShips(const Grid& grid, ofstream& file);
 
 void RandomlyPlaceShips(Grid& grid, const Ship ships[], int countShips);
 

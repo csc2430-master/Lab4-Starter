@@ -8,11 +8,11 @@ In this lab you will do an initial implementation of a `Grid` ADT which will mai
 
 ## Sample Run
 
-In this first lab we will simplify things by not using a graphical display.  Instead, you'll use a command line user interface for testing placing ships on the grid.  This interface will offer two options - manual placement and random placement.  It will prompt you to save the ship placement to file, and verify that it can  re-load that saved ship placement back into memory.
+In this first lab we will simplify things by not using a graphical display.  Instead, you'll use a command line user interface for testing placing ships on the grid.  This interface will offer three options - manual placement of ships,  random placement of ships, and loading a ship configuration from a file.  After placement is completed in the manual or random options, you will be prompted to save the ship placement to a file, if desired.
 
 The following screen shot shows a run where random ship placement was chosen:
 
-![Random Ship Placement](/images/image2.png)
+![Random Ship Placement](/images/image5.png)
 
 As you can see, when random ship placement is chosen, the user has to enter an integer for a "random seed."  Different random seeds will usually give you different ship placements, but you get the same sequence of random numbers if you enter the same seed each time.  Random ship placement makes the game more fun, but repeatability makes testing easier!
 
@@ -20,13 +20,9 @@ Next, here's a screen shot for the first part of a run where manual ship placeme
 
 ![Manual Ship Placement1](/images/image3.png)
 
-We aren't going to show you the whole manual ship placement run because it's very "chatty".  It re-displays the current ship configuration each time you place a ship on the grid -- you don't want to see all that! But, here's how the run ended:
+If the user tries to enter a ship placement which doesn't fit within the 10x10 grid, or overlaps a ship that has already been placed on the grid, no placement is done.  No changes to the _Grid_ data structure should be made in these error situations.  It's important that the user can continue on and try finishing adding ships.  The following screen shot shows an example of cases where the user tried to  add ships that would have extended outside the grid or overlap another ship.
 
-![Manual Ship Placement2](/images/image4.png)
-
-If the user tries to enter a ship placement which doesn't fit within the 10x10 grid, or overlaps a ship that has already been placed on the grid, no placement is done.  No changes to the `Grid` data structure should be made in these error situations.  It's important that the user can continue on and try finishing adding ships.  The following screen shot shows an example of how the user tried to add a ship that overlapped the first ship, and then tried to add a ship that would have extended outside the grid, and then finally entered a correct ship placement.
-
-![Manual Ship Placement3](/images/image5.png)
+![Manual Ship Placement2](/images/image2.png)
 
 ## Files you are given
 In this lab, you are given all the files you will need for your CLion project.  
@@ -64,7 +60,7 @@ As you can see it stores an array of `ship`, where `ship` is specified by:
 //      isVertical - if true, the ship is positioned vertically, else it's horizontal
 //      startRow -   row (0-9) of uppermost (if vertical) or leftmost (if horizontal) square
 //		     it occupies
-//      startColumn -column (0-9) of uppermost (if vertical) or leftmost (if horizontal) square 
+//      startColumn -column (0-9) of uppermost (if vertical) or leftmost (if horizontal) square
 //		     it occupies
 //      hits -       number of different squares that ship occupies that have been hit, it's sunk if
 //		     hits == size
@@ -78,7 +74,7 @@ struct Ship {
 };
 ```
 In addition, it stores the count of ships that have been placed on the grid in the `shipsDeployed` member, and the number of these ships which have already been sunk in the `shipsSunk` member.  In this lab `shipsSunk` will always be zero.  The `squareStatus` member is a two-dimensional array that keeps track of the status of each square of the grid.  In this lab each square will either be marked as `WATER` or `SHIP`, but in future labs, it could also be marked as `MISS`, `HIT`, or `SUNK`.
-  . 
+  .
 The `Grid` ADT interface functions that you will implement in this lab are:
 
 ```
@@ -89,7 +85,7 @@ void Init(Grid& grid);
 bool LoadShips(Grid& grid, ifstream& file);
 
 // Save the ship configuration for a grid to a text file stream
-bool SaveShips(Grid& grid, ofstream& file);
+bool SaveShips(const Grid& grid, ofstream& file);
 
 // Randomly place the indicated ships on an empty grid.
 void RandomlyPlaceShips(Grid& grid, const Ship ships[], int countShips);
@@ -168,7 +164,7 @@ For each ship, you will use the _rand()_ library function to generate random val
 Note: to get a random _bool_ value, use the expression _rand() % 2_, to get a random value for row use the expression _rand() % COUNT_ROWS_, etc.
 .  
 
-6.	The final step is to get load and save working.  Start by writing _SaveShips_.   Here’s an example of what it should write to file stream:
+6.	The final step is to get load and save working.  Start by writing _SaveShips_.    Here’s an example of what it should write to file stream:
 
 ```
 5
@@ -186,11 +182,16 @@ Carrier
 
 The first line gives the number of ships.  Then for each ship, two lines are output.  The first of these two lines gives the ship’s _name_.  The second line has the values for _size_, _isVertical_, _startRow_, and _startColumn_.  The function returns _true_ if no errors occur on the file stream, otherwise _false_.
 
-Next do an initial implementation of _TestSaveLoad_ which opens the file, saves the configuration to the file stream, and then closes the file.  When your program ends, you can then manually examine the file to make sure it is correct.
+Then, in **main.cpp**, implement _SaveShipsOnGrid_.  This function will attempt the open the file specified by the _fileName_ parameter.  If it cannot open the file, it should print an appropriate error message and return _false_.  Else, it should call the _SaveShips_ interface function.  It should then close the file, and return _true_ or _false_ depending on the return value of _SaveShips_.
 
-After you are sure _SaveShips_ is working, implement _LoadShips_.  If errors occur reading information from the file, or _AddShip_ returns _false_, you should print an informative error message.
+Test your save routines by doing a manual or random placement of ships, and selecting the save option.  View the contents of the file that was produced to see if it is correct.
 
-To test that _LoadShips_ restores the grid configuration correctly, finish your implementation of _TestSaveLoad_.  Open the file you just saved, and call _LoadShips_ using a different _Grid_ variable.  Close the file.  Assuming you haven’t returned from the function earlier because of some problem saving to or loading from file, your return value should be the result of comparing the grid configuration you saved with the grid configuration you just loaded.  This is simple because function _CompareGridConfigurations_ has been provided for you.
+Then you are ready to implement  _LoadShips_.  If errors occur reading information from the file, or _AddShip_ returns _false_, you should print an informative error message.
+
+Finally you should implement _LoadShipsOnGrid_ in **main.cpp**.  This function is very similar to _SaveShipsOnGrid_, except you are opening an input file stream.
+
+At minimum, you should test your load functionality using the provided files **saveTest1.txt**, **saveTest2.txt**, **saveTest3.txt**, **saveOther.txt**, and **tooMany.txt**.  Make sure it handles the case of trying to load a file that does not exist gracefully.
+
 
 ## Testing
 
@@ -213,9 +214,9 @@ Your program needs to be orderly and readable.  If you are working a development
   *	Making sure *struct* and object parameters are passed by reference (and declared const if appropriate)
 
 Do NOT violate the ADT encapsulation.  Only the functions declared in **grid.h** should access the fields and array elements of the _Grid_ structure.
-  
+
 ## Documentation
-    
+
 At the start of your file you should have a header comment that gives the title of the assignment, the purpose, and your name.  Here is an example (from Lab 1) of what that could look like:
 
       ```
@@ -238,7 +239,7 @@ Each subordinate function should also start with a header that describes what it
     //      expression - an arithmetic expression
     // Returns:
     //      a string consisting of the evaluation steps needed to simplify the expression
-    // Possible Error Conditions: 
+    // Possible Error Conditions:
     //      If evaluating the expression causes division by zero, this function crash.
     //      If evaluating the expression causes an oveflow, the results may not be reliable.
     ```
@@ -279,4 +280,4 @@ The following aspects are going to be consider during grading. Make sure you com
 - Catches errors gracefully, the program does not crash on incorrect input
 - The program outputs the information in the specified format
 - The assignment follows all the instructions
-- In general the program does not crash 
+- In general the program does not crash
